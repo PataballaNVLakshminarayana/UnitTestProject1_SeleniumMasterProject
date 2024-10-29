@@ -842,7 +842,7 @@ namespace UnitTestProject1_SeleniumMasterProject
         {
             IWebDriver driver2 = new FirefoxDriver();
             driver2.Url = "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2F&followup=https%3A%2F%2Faccounts.google.com%2F&ifkv=ARpgrqfWnCRdEq-vrLTPcKdfTvnUy6rGBxyRRPJNOE3-t_f4Lz9Tg-SBku6K4UfdYMvJ41CEktpR&passive=1209600&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S1866155468%3A1728415234101368&ddm=1";
-            driver2.FindElement(By.XPath("//*[@id='yDmH0d']/div[1]/div[2]/footer/div/div/div/div[1]/div")).Click();
+            driver2.FindElement(By.XPath("//*[@id='yDmH0d']")).Click();
             //string SelectElement = new SelectElement();
             //SelectElement.SelectByText("English(United Kingdom)");
             Thread.Sleep(10000);
