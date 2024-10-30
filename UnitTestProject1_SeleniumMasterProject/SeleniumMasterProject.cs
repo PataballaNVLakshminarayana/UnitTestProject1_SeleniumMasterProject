@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Interactions;
 
 namespace UnitTestProject1_SeleniumMasterProject
 {
@@ -764,23 +765,23 @@ namespace UnitTestProject1_SeleniumMasterProject
         //    Thread.Sleep(10000);
         //    driver.Quit();
         //}
-        [TestMethod] // How to handle dropdown and multiselect dropdown in selenium web driver, In this vedio drop down and multiselect dropdown, SelectElement Class, properties in SelectElement Class, methods in SelectElement Class
-        public void Vedio_20_DropdownandMultiSelectDropdown()
-        {
-            IWebDriver driver = new FirefoxDriver();
-            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
-            ReadOnlyCollection<IWebElement> elements = driver.FindElements(By.Id("languageSelect"));
-            SelectElement selectelement = new SelectElement(elements);
-            Console.WriteLine("The selected element count is : " + elements);
-            IList<IWebElement> element = selectelement.Elements;
-            Console.WriteLine("The count of the element is : " + element.Count);
-            foreach (var items in element)
-            {
-                Console.WriteLine("The element are : " + items.Text);
-            }
-            Thread.Sleep(10000);
-            driver.Quit();
-        }
+        //[TestMethod] // How to handle dropdown and multiselect dropdown in selenium web driver, In this vedio drop down and multiselect dropdown, SelectElement Class, properties in SelectElement Class, methods in SelectElement Class
+        //public void Vedio_20_DropdownandMultiSelectDropdown()
+        //{
+        //    IWebDriver driver = new FirefoxDriver();
+        //    driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+        //    ReadOnlyCollection<IWebElement> elements = driver.FindElements(By.Id("languageSelect"));
+        //    SelectElement selectelement = new SelectElement(elements);
+        //    Console.WriteLine("The selected element count is : " + elements);
+        //    IList<IWebElement> element = selectelement.Elements;
+        //    Console.WriteLine("The count of the element is : " + element.Count);
+        //    foreach (var items in element)
+        //    {
+        //        Console.WriteLine("The element are : " + items.Text);
+        //    }
+        //    Thread.Sleep(10000);
+        //    driver.Quit();
+        //}
         //[TestMethod]
         //public void ExecuteAutomation_Video_8_DropDownAndMultiSelectOptions()
         //{
@@ -841,8 +842,10 @@ namespace UnitTestProject1_SeleniumMasterProject
         public void Vedio_21_SelectValueInBootStrapDropDown()
         {
             IWebDriver driver2 = new FirefoxDriver();
-            driver2.Url = "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2F&followup=https%3A%2F%2Faccounts.google.com%2F&ifkv=ARpgrqfWnCRdEq-vrLTPcKdfTvnUy6rGBxyRRPJNOE3-t_f4Lz9Tg-SBku6K4UfdYMvJ41CEktpR&passive=1209600&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S1866155468%3A1728415234101368&ddm=1";
-            driver2.FindElement(By.XPath("//*[@id='yDmH0d']")).Click();
+            driver2.Url = "https://www.amazon.in/";
+            //driver2.FindElement(By.Id("searchDropdownBox")).Click();
+            string sr = driver2.FindElement(By.XPath(".//option[text()='Amazon Pharmacy']")).Text;
+            Console.WriteLine("The give value is : " + sr);
             //string SelectElement = new SelectElement();
             //SelectElement.SelectByText("English(United Kingdom)");
             Thread.Sleep(10000);
@@ -850,28 +853,110 @@ namespace UnitTestProject1_SeleniumMasterProject
         }
         // Vedio_21st should need to refarr again
         //Vedio_22nd about action classes
+        [TestMethod]
+        public void Vedio_23_MouseMoveToElement() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.Id("submitbutton")))
+            .Build()
+            .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_23_MouseMoveToElementContext() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.Id("submitbutton")), 20, 20)
+                .ContextClick()
+            .Build()
+            .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_23_MouseMoveToElementTopLeft() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.Id("submitbutton")))
+             .MoveToLocation(20, 20)
+                .ContextClick()
+            .Build()
+            .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_24_MouseClickMethods() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.Name("login"))).Click()
+                // .ContextClick()
+                .Build()
+                .Perform();
+
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_24_MouseClickMethodsWithPerametor() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.Click(driver.FindElement(By.Name("login")))
+                //act.MoveToElement(driver.FindElement(By.Name("login"))).Click()
+                // .ContextClick()
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_25_MouseDoubleClickMethods() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.Name("login")))
+                .DoubleClick()
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_25_MouseDoubleClickMethodsWithParametor() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            //act.MoveToElement(driver.FindElement(By.Id("submitbutton")))
+            act.DoubleClick(driver.FindElement(By.Name("login")))
+            .Build()
+            .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
         //[TestMethod]
-        //public void Vedio_23_MoveToElement() //MoveToElement method in action class
+        //public void Vedio_26_MouseClickandHold() //MoveToElement method in action class
         //{
         //    IWebDriver driver = new FirefoxDriver();
         //    driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
-        //    Actions act= new Actions(driver);
-        //    act.MoveToElement(driver.FindElement(By.Id("submitbutton")));
-        //    Build();
-        //    Perform();
+        //    Actions act = new Actions(driver);
+        //    driver.FindElement(By.ClassName("cl"))
         //    Thread.Sleep(10000);
         //    driver.Quit();
-
-        //}
-
-        //public void Perform()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void Build()
-        //{
-        //    throw new NotImplementedException();
         //}
     }
+
+
 }
