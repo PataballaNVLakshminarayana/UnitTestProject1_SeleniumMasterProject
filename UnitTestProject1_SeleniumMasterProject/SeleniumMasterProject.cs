@@ -946,17 +946,143 @@ namespace UnitTestProject1_SeleniumMasterProject
             Thread.Sleep(10000);
             driver.Quit();
         }
-        //[TestMethod]
-        //public void Vedio_26_MouseClickandHold() //MoveToElement method in action class
-        //{
-        //    IWebDriver driver = new FirefoxDriver();
-        //    driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
-        //    Actions act = new Actions(driver);
-        //    driver.FindElement(By.ClassName("cl"))
-        //    Thread.Sleep(10000);
-        //    driver.Quit();
-        //}
+        [TestMethod]
+        public void Vedio_26_MouseClickandHold() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.worldometers.info/languages/how-many-letters-alphabet/#:~:text=The%20English%20Alphabet%20consists%20of,%2C%20X%2C%20Y%2C%20Z";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.XPath("//td[text()='1']")))
+                .ClickAndHold()
+                .MoveToElement(driver.FindElement(By.XPath("//td[text()='D']")))
+                .Release()
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_26_MouseClickandHoldWithParametor() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.worldometers.info/languages/how-many-letters-alphabet/#:~:text=The%20English%20Alphabet%20consists%20of,%2C%20X%2C%20Y%2C%20Z";
+            Actions act = new Actions(driver);
+            //act.MoveToElement(driver.FindElement(By.XPath("//td[text()='1']")))
+            act.ClickAndHold(driver.FindElement(By.XPath("//td[text()='1']")))
+            .MoveToElement(driver.FindElement(By.XPath("//td[text()='F']")))
+            .Release()
+            .Build()
+            .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_26_MouseClickandHoldAndReleaseWithParametor() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.worldometers.info/languages/how-many-letters-alphabet/#:~:text=The%20English%20Alphabet%20consists%20of,%2C%20X%2C%20Y%2C%20Z";
+            Actions act = new Actions(driver);
+            act.ClickAndHold(driver.FindElement(By.XPath("//td[text()='1']")))
+                .Release(driver.FindElement(By.XPath("//td[text()='F']")))
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_27_ContextClickOrRightClick() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.worldometers.info/languages/how-many-letters-alphabet/#:~:text=The%20English%20Alphabet%20consists%20of,%2C%20X%2C%20Y%2C%20Z";
+            Actions act = new Actions(driver);
+            act.MoveToElement(driver.FindElement(By.XPath("//td[text()='1']")))
+                .ContextClick()
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_27_ContextClickOrRightClickWithPerametor() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.worldometers.info/languages/how-many-letters-alphabet/#:~:text=The%20English%20Alphabet%20consists%20of,%2C%20X%2C%20Y%2C%20Z";
+            Actions act = new Actions(driver);
+            //act.MoveToElement(driver.FindElement(By.XPath("//td[text()='1']")))
+            act.ContextClick(driver.FindElement(By.XPath("//td[text()='1']")))
+            .Build()
+            .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_28_MoveToOffSetCoordinates() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2F&followup=https%3A%2F%2Faccounts.google.com%2F&ifkv=AcMMx-c_66rfe1GcUhTTuQjc6U8keHfbT1fWAKO6VMwShfmeARc4LIwyp3-3QEcLZjcnOXD1MYnj&passive=1209600&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-2143751814%3A1730294950048691&ddm=1";
+            Actions act = new Actions(driver);
+            act.MoveByOffset(200, 200)
+                .ContextClick()
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]  // NEED TO REVIEW THE CORRECT URL TO COMPLETE THE TEST SCRIPT
+        public void Vedio_29_MouseDragAndDrop() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.globalsqa.com/demo-site/draganddrop/#Photo%20Manager";
+            Actions act = new Actions(driver);
+            act.DragAndDrop(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")), driver.FindElement(By.XPath("//div[@id='trash']")))
+                 .Build()
+                 .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]  // NEED TO REVIEW THE CORRECT URL TO COMPLETE THE TEST SCRIPT
+        public void Vedio_30_MouseDragAndDropOffSet() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.globalsqa.com/demo-site/draganddrop/#Photo%20Manager";
+            Actions act = new Actions(driver);
+            act.DragAndDropToOffset(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")), 200, 210)
+                 .Build()
+                 .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]  // NEED TO REVIEW THE CORRECT URL TO COMPLETE THE TEST SCRIPT
+        public void Vedio_30_ActionKeysUpandKeysDownMethods() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.globalsqa.com/demo-site/draganddrop/#Photo%20Manager";
+            Actions act = new Actions(driver);
+            //act.KeyDown(Keys.Control).Click(driver.FindElement(By.XPath("//img[@src='images/high_tatras_min.jpg']")))
+            //    .Click(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")))
+            //    .Click(driver.FindElement(By.XPath("//img[@src='images/high_tatras2_min.jpg']")))
+            act.KeyDown(driver.FindElement(By.XPath("//img[@src='images/high_tatras_min.jpg']")),Keys.Control)
+                .KeyDown(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")),Keys.Control)
+                .KeyUp(driver.FindElement(By.XPath("//img[@src='images/high_tatras2_min.jpg']")),Keys.Control)
+                .Release()
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]  // NEED TO REVIEW THE CORRECT URL TO COMPLETE THE TEST SCRIPT
+        public void Vedio_32_ActionSendKeysMethods() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://www.globalsqa.com/demo-site/draganddrop/#Photo%20Manager";
+            Actions act = new Actions(driver);
+            act.SendKeys(Keys.End)
+                .Perform();
+            Thread.Sleep(10000);
+            act.SendKeys(Keys.Home)
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
     }
-
-
 }
