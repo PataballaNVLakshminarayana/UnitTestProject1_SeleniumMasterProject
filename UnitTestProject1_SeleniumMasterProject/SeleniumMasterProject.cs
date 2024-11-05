@@ -8,12 +8,16 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using System.Diagnostics;
 
 namespace UnitTestProject1_SeleniumMasterProject
 {
     [TestClass]
     public class SeleniumMasterProject
     {
+        public object ExpectedConditions { get; private set; }
+
         //[TestMethod]
         //public void Vedio_3()
         //{
@@ -1061,9 +1065,9 @@ namespace UnitTestProject1_SeleniumMasterProject
             //act.KeyDown(Keys.Control).Click(driver.FindElement(By.XPath("//img[@src='images/high_tatras_min.jpg']")))
             //    .Click(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")))
             //    .Click(driver.FindElement(By.XPath("//img[@src='images/high_tatras2_min.jpg']")))
-            act.KeyDown(driver.FindElement(By.XPath("//img[@src='images/high_tatras_min.jpg']")),Keys.Control)
-                .KeyDown(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")),Keys.Control)
-                .KeyUp(driver.FindElement(By.XPath("//img[@src='images/high_tatras2_min.jpg']")),Keys.Control)
+            act.KeyDown(driver.FindElement(By.XPath("//img[@src='images/high_tatras_min.jpg']")), Keys.Control)
+                .KeyDown(driver.FindElement(By.XPath("//img[@src='images/high_tatras4_min.jpg']")), Keys.Control)
+                .KeyUp(driver.FindElement(By.XPath("//img[@src='images/high_tatras2_min.jpg']")), Keys.Control)
                 .Release()
                 .Build()
                 .Perform();
@@ -1082,6 +1086,93 @@ namespace UnitTestProject1_SeleniumMasterProject
             act.SendKeys(Keys.Home)
                 .Perform();
             Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_33_FillEntireFormInaSingleStatement() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Actions act = new Actions(driver);
+            act.Click(driver.FindElement(By.Id("loginname")))
+                .SendKeys("lakshminarayana@gmail.com" + Keys.Tab)
+                .SendKeys("password!123" + Keys.Tab)
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_34_ClearTextwithoutUsingClearMethod() //MoveToElement method in action class
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            driver.FindElement(By.Id("loginname")).SendKeys("lakshminarayana31.p@gmail.com");
+            Thread.Sleep(10000);
+            Actions act = new Actions(driver);
+            act.Click(driver.FindElement(By.Id("loginname")))
+                .KeyDown(Keys.Control)
+                .SendKeys("a")
+                .KeyUp(Keys.Control)
+                .SendKeys(Keys.Backspace)
+                .Build()
+                .Perform();
+            Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_35_SynchronizationUsingThreadWait()
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            driver.FindElement(By.PartialLinkText("Learn more")).Click();
+            string str = driver.FindElement(By.ClassName("meta-heading")).Text;
+            Console.WriteLine(str.Contains("Email"));
+            //Thread.Sleep(10000);
+            driver.Quit();
+        }
+        [TestMethod]
+        public void Vedio_35_ImplicitWait()
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            driver.FindElement(By.PartialLinkText("Learn more")).Click();
+            string str = driver.FindElement(By.ClassName("meta-heading")).Text;
+            Console.WriteLine(str.Contains("Email"));
+            //Thread.Sleep(10000);
+            driver.Quit();
+        }
+        //[TestMethod]  // Need to refer again
+        //public void Vedio_36_ExplicitWait()
+        //{
+        //    IWebDriver driver = new FirefoxDriver();
+        //    driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+        //    driver.FindElement(By.PartialLinkText("Learn more")).Click();
+        //    WebDriverWait driverwait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+        //    driverwait.Until(ExpectedConditions.ElementExists(By.ClassName("meta-heading")));
+        //    var explicitdriver= driverwait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("meta-heading")));
+        //    string str = driver.FindElement(By.ClassName("meta-heading")).Text;
+        //}
+        [TestMethod]  // Need to refer again //37 th theary
+        public void Vedio_38_PageLoadWait()
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            //driver.FindElement(By.PartialLinkText("Learn more")).Click();
+            driver.Quit();
+        }
+        [TestMethod]  // Need to refer again //37 th theary
+        public void Vedio_39_BothImplicitAndExplicitWaits()
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://zixmessagecenter.com/s/welcome.jsp?b=zmc";
+            Stopwatch watch = null;
+            watch = Stopwatch.StartNew();
+            driver.FindElement(By.PartialLinkText("Learnore")).Click();
+            watch.Stop();
+            Console.WriteLine(watch.ElapsedMilliseconds + " Milliseconds");
             driver.Quit();
         }
     }
